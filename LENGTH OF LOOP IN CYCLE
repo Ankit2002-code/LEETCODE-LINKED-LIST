@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int findLoopLength(ListNode* head) {
+        ListNode* meetingPoint = detectCycle(head);
+        if (meetingPoint == nullptr) {
+            return 0;  // No cycle, so loop length is 0
+        }
+        int length = 1;  // At least one node is part of the loop
+        ListNode* runner = meetingPoint->next;
+        // Move the runner until it reaches the meeting point again
+        while (runner != meetingPoint) {
+            length++;
+            runner = runner->next;
+        }
+        return length;
+    }
+    ListNode* detectCycle(ListNode* head) {
+        if (head == nullptr || head->next == nullptr) {
+            return nullptr;  // No cycle in an empty or single-node list
+        }
+        ListNode* slow = head;
+        ListNode* fast = head;
+        // Detect cycle
+        while (fast != nullptr && fast->next != nullptr) {
+            slow = slow->next;
+            fast = fast->next->next;
+            if (slow == fast) {
+                // Cycle detected
+                // Reset one pointer to the head and move both pointers one step at a time
+                slow = head;
+                while (slow != fast) {
+                    slow = slow->next;
+                    fast = fast->next;
+                }
+                return slow;  // Return the starting point of the cycle
+            }
+        }
+        return nullptr;  
+    }
+};
