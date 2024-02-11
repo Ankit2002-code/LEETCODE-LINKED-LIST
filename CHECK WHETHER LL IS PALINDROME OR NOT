@@ -1,0 +1,39 @@
+	Idea- find the mid by tortoise-hare, and then reverse 
+	The second half of LL by taking slow as head and then
+	Compare the two halfs . 
+	
+	class Solution {
+	public:
+	    ListNode* reverse(ListNode*head){
+	        ListNode*prev=nullptr;
+	        ListNode*curr=head;
+	        while(curr!=nullptr){
+	            ListNode*nextnode=curr->next;
+	            curr->next=prev;
+	            prev=curr;
+	            curr=nextnode;
+	        }
+	        return prev;
+	    }
+	    bool isPalindrome(ListNode* head) {
+	        if(head==nullptr||head->next==nullptr){
+	            return true;
+	        }
+	        ListNode*slow=head;
+	        ListNode*fast=head;
+	        while(fast!=nullptr&&fast->next!=nullptr)
+	       {
+	           slow=slow->next;
+	           fast=fast->next->next;
+	       }
+	       ListNode*secondhalf= reverse(slow);
+	       while(secondhalf!=nullptr){
+	           if(head->val!=secondhalf->val){
+	               return false;
+	           }
+	           head=head->next;
+	           secondhalf=secondhalf->next;
+	       }
+	       return true;
+	    }
+};
