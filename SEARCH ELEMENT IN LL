@@ -1,0 +1,12 @@
+	int checkifPresent(Node* head, int desiredElement) {
+	    Node* temp = head;
+	    // Traverse the linked list
+	    while (temp != nullptr) {
+	        // Check if the current node's data is equal to the desired element
+	        if (temp->data == desiredElement)
+	            return 1;  // Return 1 if the element is found
+	        // Move to the next node
+	        temp = temp->next;
+	    }
+	    return 0;  // Return 0 if the element is not found in the linked list
+}
