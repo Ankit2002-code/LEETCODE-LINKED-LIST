@@ -1,0 +1,37 @@
+	
+	class Solution {
+	public:
+	    ListNode* rotateRight(ListNode* head, int k) {
+	        if (!head || k == 0) {
+	        return head;
+	    }
+	    // Step 1: Find the length of the linked list
+	    int length = 1;
+	    ListNode* current = head;
+	    while (current->next) {
+	        length++;
+	        current = current->next;
+	    }
+	    // Step 2: Calculate the effective rotation amount
+	    k = k % length;
+	    if (k == 0) {
+	        return head;  // No rotation needed
+	    }
+	    // Step 3: Traverse to the new tail position
+	    int new_tail_index = length - k - 1;
+	    current = head;
+	    for (int i = 0; i < new_tail_index; ++i) {
+	        current = current->next;
+	    }
+	    // Step 4: Perform rotation
+	    ListNode* new_head = current->next;
+	    current->next = nullptr;  // Set the new tail's next to nullptr
+	    current = new_head;
+	    while (current->next) {
+	        current = current->next;
+	    }
+	    current->next = head;  // Connect the original head to the new tail
+	    return new_head;
+	    }
+	};
+	
