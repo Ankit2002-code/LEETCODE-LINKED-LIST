@@ -1,0 +1,24 @@
+	Can be solved by tortoise and hare algo 
+	Taking one slow pointer that moves 1 step , and a
+	Fast pointer that moves 2 step , if they collide 
+	At any point then it’s a cycle otherwise no.
+	
+	
+	class Solution {
+	public:
+	    bool hasCycle(ListNode *head) {
+	         if (head == nullptr || head->next == nullptr) {
+	            return false;  
+	        }
+	        ListNode* slow = head;
+	        ListNode* fast = head;
+	        while (fast != nullptr && fast->next != nullptr) {
+	            slow = slow->next;
+	            fast = fast->next->next;
+	            if (slow == fast) {
+	                return true;  // Cycle detected
+	            }
+	        }
+	        return false;  // No cycle detected
+	    }
+};
