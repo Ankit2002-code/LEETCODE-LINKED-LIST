@@ -1,0 +1,26 @@
+	Approach -  use start and end pointer and shift the end pointer to the last node
+	And then shift the pointers according to their value in order to get the sum .
+	
+	std::vector<std::pair<int, int>> findPairs(Node* head, int k) {
+	    std::vector<std::pair<int, int>> result;
+	    
+	    Node* start = head;
+	    Node* end = head;
+	    // Move 'end' to the last node
+	    while (end->next != nullptr) {
+	        end = end->next;
+	    }
+	    while (start != nullptr && end != nullptr && start != end && start->prev != end) {
+	        int sum = start->data + end->data;
+	        if (sum == k) {
+	            result.push_back({start->data, end->data});
+	            start = start->next;
+	            end = end->prev;
+	        } else if (sum < k) {
+	            start = start->next;
+	        } else {
+	            end = end->prev;
+	        }
+	    }
+	    return result;
+}
